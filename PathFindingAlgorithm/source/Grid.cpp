@@ -25,7 +25,7 @@ std::shared_ptr<Grid> Grid::CreateGrid(const int32_t height, const int32_t width
                 Position pos(Position(node->GetPosition().X() + position.X(), node->GetPosition().Y() + position.Y()));
                 if (IsLocationValid(pos, width, height))
                 {
-                    node->Neighbour().push_back(mNodes.at(Position(x, y)));
+                    node->Neighbour().push_back(mNodes.at(pos));
                 }
             }
         }

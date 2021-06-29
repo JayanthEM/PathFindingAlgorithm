@@ -116,12 +116,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="source\Astar.cpp" />
+    <ClCompile Include="source\Dijkstra.cpp" />
     <ClCompile Include="source\Grid.cpp" />
+    <ClCompile Include="source\IPathFinder.cpp" />
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\Node.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\Astar.h" />
+    <ClInclude Include="source\Dijkstra.h" />
     <ClInclude Include="source\Grid.h" />
     <ClInclude Include="source\IPathFinder.h" />
     <ClInclude Include="source\Node.h" />

@@ -1,6 +1,15 @@
 #include "Grid.h"
 
-std::shared_ptr<Grid> Grid::CreateGrid(const int32_t height, const int32_t width)
+std::shared_ptr<Grid> Grid::instance = nullptr;
+
+std::shared_ptr<Grid> Grid::GetInstance()
+{
+    if (!instance)
+        instance = std::make_shared<Grid>();
+    return instance;
+}
+
+void Grid::CreateGrid(const int32_t height, const int32_t width)
 {
     for (int32_t x = 0; x < width; ++x)
     {

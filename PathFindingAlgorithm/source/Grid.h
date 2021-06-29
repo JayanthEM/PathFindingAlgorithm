@@ -7,7 +7,10 @@
 class Grid
 {
 public:
-    std::shared_ptr<Grid> CreateGrid(const int32_t height, const int32_t width);
+    static std::shared_ptr<Grid> instance;
+    static std::shared_ptr<Grid> GetInstance();
+
+    void CreateGrid(const int32_t height, const int32_t width);
     std::shared_ptr<Node> GetNode(Position position);
     
     void ResetNodes();

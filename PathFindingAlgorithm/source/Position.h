@@ -14,6 +14,17 @@ public:
         return ((y*2+x) < (pos.y*2+pos.x));
     }
 
+    Position& operator=(const Position& position)
+    {
+        x = position.x;
+        y = position.y;
+    }
+
+    bool operator == (const Position& position)
+    {
+        return (x == position.x) && (y == position.y);
+    }
+
 private:
     int32_t x;
     int32_t y;

@@ -25,7 +25,7 @@ bool AStar::FindPath(Position start, Position end, std::list<std::shared_ptr<Nod
         currentNode->SetVisited(true);
         frontier.pop_front();
 
-        FloodFill(currentNode, destination, frontier, pathFound, &(IPathFinder::ManhattanDistance));
+       // FloodFill(currentNode, destination, frontier, pathFound, &(IPathFinder::ManhattanDistance));
 
         if (pathFound)
         {

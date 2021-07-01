@@ -36,8 +36,6 @@ public:
 
     void Reset();
 
-    //Update the comparison accordingly. As we are using this in stl map which has sort function
-    //so need to override comparison operator <
     bool operator<(const Node& node) const;
     bool operator=(const Node& node) const;
     void operator()(const Node& node1, const Node& node2) const {}

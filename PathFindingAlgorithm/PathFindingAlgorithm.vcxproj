@@ -94,10 +94,17 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>F:\C++\PathFinding\PathFindingAlgorithm\External Libraries\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>F:\C++\PathFinding\PathFindingAlgorithm\External Libraries\SDL2\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>
+      </SubSystem>
+      <EntryPointSymbol>
+      </EntryPointSymbol>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -117,17 +124,25 @@
   <ItemGroup>
     <ClCompile Include="source\Astar.cpp" />
     <ClCompile Include="source\Dijkstra.cpp" />
+    <ClCompile Include="source\GameEngine.cpp" />
     <ClCompile Include="source\Grid.cpp" />
+    <ClCompile Include="source\InputHandler.cpp" />
     <ClCompile Include="source\IPathFinder.cpp" />
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\Node.cpp" />
+    <ClCompile Include="source\PathFinder.cpp" />
+    <ClCompile Include="source\PathFinderFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\Astar.h" />
     <ClInclude Include="source\Dijkstra.h" />
+    <ClInclude Include="source\GameEngine.h" />
     <ClInclude Include="source\Grid.h" />
+    <ClInclude Include="source\InputHandler.h" />
     <ClInclude Include="source\IPathFinder.h" />
     <ClInclude Include="source\Node.h" />
+    <ClInclude Include="source\PathFinder.h" />
+    <ClInclude Include="source\PathFinderFactory.h" />
     <ClInclude Include="source\Position.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

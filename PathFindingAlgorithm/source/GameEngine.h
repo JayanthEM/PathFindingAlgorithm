@@ -6,6 +6,7 @@
 #define WIDTH 800
 #define HEIGHT 600
 
+//Not a Generic GameEngine, tightly bounded to pathfinding algorithm
 class GameEngine
 {
 public:

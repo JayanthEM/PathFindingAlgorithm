@@ -27,7 +27,7 @@ public:
     uint32_t GetHeristic() const;
 
     PATH GetPathType() const;
-    void SetPathTYPe(PATH path);
+    void SetPathType(PATH path);
 
     bool IsVisited();
     void SetVisited(bool status);

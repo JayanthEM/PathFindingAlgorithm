@@ -4,6 +4,7 @@
 class Position
 {
 public:
+    Position() {}
     Position(int32_t _x, int32_t _y) : x(_x), y(_y){};
 
     int32_t X() { return x; }
@@ -23,6 +24,11 @@ public:
     bool operator == (const Position& position)
     {
         return (x == position.x) && (y == position.y);
+    }
+
+    bool operator != (const Position& position)
+    {
+        return ( (x != position.x) || (y != position.y) );
     }
 
 private:

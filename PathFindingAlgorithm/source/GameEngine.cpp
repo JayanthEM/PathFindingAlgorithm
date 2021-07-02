@@ -3,11 +3,14 @@
 
 GameEngine::GameEngine() : m_quit(false), m_window(nullptr), m_renderer(nullptr)
 {
-
+    inputHandler = new InputHandler();
+    pathFinder = new PathFinder();
 }
 
 GameEngine::~GameEngine()
 {    
+    delete inputHandler;
+    delete pathFinder;
 }
 
 void GameEngine::ConstructEngine()
@@ -21,8 +24,6 @@ void GameEngine::ConstructEngine()
         return;
 
     m_renderer = SDL_CreateRenderer(m_window,-1,SDL_RENDERER_ACCELERATED);
-
-    //Initialize GameState
 }
 
 
@@ -30,9 +31,9 @@ void GameEngine::GameLoop()
 {
     while (!m_quit)
     {
-        // Input
-        // Update
-        // Renderer
+        inputHandler->HandleInput(m_quit);
+        pathFinder->Update();
+        pathFinder->Renderer(m_renderer);
     }
     
 }

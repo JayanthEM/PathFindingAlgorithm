@@ -58,7 +58,7 @@ PATH Node::GetPathType() const
     return mPathType;
 }
 
-void Node::SetPathTYPe(PATH pathtype)
+void Node::SetPathType(PATH pathtype)
 { 
     mPathType = pathtype;
 }

@@ -1,8 +1,9 @@
 #pragma once
-#include "PathFinderFactory.h"
-#include "Node.h"
 #include <list>
+#include <functional>
 #include "SDL.h"
+#include "IPathFindingAlgorithm.h"
+#include "Node.h"
 
 class PathFinder
 {
@@ -14,9 +15,16 @@ public:
 
     void Update();
     void Renderer(SDL_Renderer* renderer);
-
+    void HandleUserInput(std::function<void(Position&)> callBack);
+    void ChangePathFindingAlgorithm(const SDL_Event& event);
+    
 private:
-    IPathFinder* pathFinder;
+
+    bool validMouseInput;
+
+    Position mouseInputPosition;
+
+    IPathFindingAlgorithm* pathFinder;
 
     Position m_StartPosition;
     Position m_EndPosition;

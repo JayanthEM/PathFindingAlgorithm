@@ -1,5 +1,5 @@
 #include "Astar.h"
-#include <list>
+#include<functional>
 
 bool AStar::FindPath(Position start, Position end, std::list<std::shared_ptr<Node>> &path)
 {
@@ -24,8 +24,9 @@ bool AStar::FindPath(Position start, Position end, std::list<std::shared_ptr<Nod
 
         currentNode->SetVisited(true);
         frontier.pop_front();
+        AStar::Manhattan foo = &IPathFindingAlgorithm::ManhattanDistance;
 
-       // FloodFill(currentNode, destination, frontier, pathFound, &(IPathFinder::ManhattanDistance));
+       FloodFill(currentNode, destination, frontier, pathFound,foo );
 
         if (pathFound)
         {

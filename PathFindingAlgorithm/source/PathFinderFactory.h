@@ -1,5 +1,5 @@
 #pragma once
-#include "IPathFinder.h""
+#include "IPathFindingAlgorithm.h""
 #include "Astar.h"
 #include "Dijkstra.h"
 
@@ -12,7 +12,7 @@ enum PATHFINDING_ALGORITHM
 class PathFinderFactory
 {
 public:
-    static IPathFinder* CreatePathFinder(PATHFINDING_ALGORITHM type);
+    static IPathFindingAlgorithm* CreatePathFinder(PATHFINDING_ALGORITHM type);
 
 private:
     static AStar *astar;

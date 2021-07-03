@@ -15,7 +15,7 @@ public:
         return ((y*2+x) < (pos.y*2+pos.x));
     }
 
-    Position& operator=(const Position& position)
+    void operator=(const Position& position)
     {
         x = position.x;
         y = position.y;

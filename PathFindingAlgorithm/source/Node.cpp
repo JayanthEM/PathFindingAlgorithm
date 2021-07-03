@@ -73,7 +73,7 @@ void Node::SetVisited(bool status)
     mVisited = status;
 }
 
-std::vector<std::shared_ptr<Node>> Node::Neighbour()
+std::vector<std::shared_ptr<Node>>& Node::Neighbour()
 {
     return mNeighbhourNode;
 }

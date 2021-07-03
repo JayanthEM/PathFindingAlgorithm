@@ -1,11 +1,10 @@
 #include "PathFinderFactory.h"
-#include "Astar.h"
 
 AStar *PathFinderFactory::astar = nullptr;
 Dijkstra *PathFinderFactory::dijkstra = nullptr;
 
 
-IPathFinder* PathFinderFactory::CreatePathFinder(PATHFINDING_ALGORITHM type)
+IPathFindingAlgorithm* PathFinderFactory::CreatePathFinder(PATHFINDING_ALGORITHM type)
 {
     switch (type)
     {

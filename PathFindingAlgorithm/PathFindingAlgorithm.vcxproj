@@ -127,7 +127,7 @@
     <ClCompile Include="source\GameEngine.cpp" />
     <ClCompile Include="source\Grid.cpp" />
     <ClCompile Include="source\InputHandler.cpp" />
-    <ClCompile Include="source\IPathFinder.cpp" />
+    <ClCompile Include="source\IPathFindingAlgorithm.cpp" />
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\Node.cpp" />
     <ClCompile Include="source\PathFinder.cpp" />
@@ -139,7 +139,7 @@
     <ClInclude Include="source\GameEngine.h" />
     <ClInclude Include="source\Grid.h" />
     <ClInclude Include="source\InputHandler.h" />
-    <ClInclude Include="source\IPathFinder.h" />
+    <ClInclude Include="source\IPathFindingAlgorithm.h" />
     <ClInclude Include="source\Node.h" />
     <ClInclude Include="source\PathFinder.h" />
     <ClInclude Include="source\PathFinderFactory.h" />

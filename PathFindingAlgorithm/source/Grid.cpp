@@ -1,4 +1,5 @@
 #include "Grid.h"
+#include <iostream>
 
 std::shared_ptr<Grid> Grid::instance = nullptr;
 
@@ -11,9 +12,12 @@ std::shared_ptr<Grid> Grid::GetInstance()
 
 void Grid::CreateGrid(const int32_t height, const int32_t width)
 {
-    for (int32_t x = 0; x < height; ++x)
+    m_height = height;
+    m_width = width;
+
+    for (int32_t x = 0; x < width; ++x)
     {
-        for (int32_t y = 0; y < width; ++y)
+        for (int32_t y = 0; y < height; ++y)
         {
             mNodes.insert(std::make_pair(Position(x, y), new Node(Position(x,y))));
         }
@@ -23,9 +27,9 @@ void Grid::CreateGrid(const int32_t height, const int32_t width)
     Position neighbour[] = { Position(-1,0), Position(1,0), Position(0,-1), Position(0,1),
                             Position(-1,-1), Position(1,1), Position(1,-1), Position(-1,1) };   // Diagonal Nodes
     
-    for (int32_t x = 0; x < height; ++x)
+    for (int32_t x = 0; x < width; ++x)
     {
-        for (int32_t y= 0; y < width; ++y)
+        for (int32_t y= 0; y < height; ++y)
         {
             std::shared_ptr<Node> node = mNodes.at(Position(x, y));
 
@@ -51,7 +55,7 @@ std::shared_ptr<Node> Grid::GetNode(Position position)
 
 bool Grid::IsLocationValid(Position pos, const int32_t &width, const int32_t &height)
 {
-    return ((pos.X() >= 0 &&  pos.X() < height) && (pos.Y() >= 0 && pos.Y() < width));
+    return ((pos.X() >= 0 &&  pos.X() < width) && (pos.Y() >= 0 && pos.Y() < height));
     return true;
 }
 

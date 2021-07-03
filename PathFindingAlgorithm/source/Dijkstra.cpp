@@ -13,7 +13,7 @@ bool Dijkstra::FindPath(Position start, Position end, std::list<std::shared_ptr<
     while (!frontier.empty())
     {
         frontier.sort([](std::shared_ptr<Node> const &first, std::shared_ptr<Node> const &second)->bool
-        { return ((first->GetPathCost() + first->GetHeristic()) < (second->GetPathCost() + second->GetHeristic())); }
+        { return ((first->GetPathCost()) < (second->GetPathCost())); }
         );
 
         std::shared_ptr<Node> currentNode = frontier.front();

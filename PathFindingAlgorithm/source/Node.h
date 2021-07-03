@@ -32,7 +32,7 @@ public:
     bool IsVisited();
     void SetVisited(bool status);
 
-    std::vector<std::shared_ptr<Node>> Neighbour();
+    std::vector<std::shared_ptr<Node>>& Neighbour();
 
     void Reset();
 

@@ -1,8 +1,7 @@
 #pragma once
-#include "IPathFinder.h"
-#include "Grid.h"
+#include "IPathFindingAlgorithm.h"
 
-class AStar : public IPathFinder
+class AStar : public IPathFindingAlgorithm
 {
 public:
     AStar() {}
@@ -10,4 +9,5 @@ public:
     bool FindPath(Position start, Position end, std::list<std::shared_ptr<Node>> &path) override;
     std::string GetName();
 
+    typedef uint32_t(IPathFindingAlgorithm::*Manhattan)(Position, Position);
 };

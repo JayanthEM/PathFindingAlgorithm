@@ -1,9 +1,10 @@
 #include <SDL.h>
 #undef main
-#include <iostream>
-#include <array>
+#include "GameEngine.h"
 
 int main()
 {
-
+    GameEngine engine;
+    engine.ConstructEngine();
+    engine.GameLoop();
 }

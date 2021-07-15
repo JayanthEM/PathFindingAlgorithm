@@ -6,10 +6,10 @@ void PathFinder::Create(const int32_t width, const int32_t height)
 {
     Grid::GetInstance()->CreateGrid(height, width);
  
-    pathFinder = PathFinderFactory::CreatePathFinder(PATHFINDING_ALGORITHM::AStar_Algorithm);
+    pathFinder = PathFinderFactory::CreatePathFinder(PATHFINDING_ALGORITHM::Dijkstra_Algorithm);
     
-    m_StartPosition = Position(5, 5);
-    m_EndPosition = Position(10, 10);
+    m_StartPosition = Position(1, 2);
+    m_EndPosition = Position(1, 5);
 }
 
 void PathFinder::HandleUserInput(std::function<void(Position&)> callBack)
@@ -35,7 +35,7 @@ void PathFinder::Update()
         int x = (mouseInputPosition.X() - (mouseInputPosition.X() % 40))/ 40;
         int y = (mouseInputPosition.Y() - (mouseInputPosition.Y() % 40)) /40;
 
-        Position position(x, y);
+        Position position(y, x);
 
         if (!m_IsStartPosition && m_StartPosition == position)
         {
@@ -108,7 +108,7 @@ void PathFinder::Renderer(SDL_Renderer* renderer)
     // wall
     for (auto i = m_Wall.begin(); i != m_Wall.end(); ++i)
     {
-        SDL_Rect rect = { i->X()*40, i->Y()*40, 40, 40 };
+        SDL_Rect rect = {  i->Y()*40, i->X() * 40, 40, 40 };
         SDL_SetRenderDrawColor(renderer, 255, 0, 0, SDL_ALPHA_OPAQUE);
         SDL_RenderFillRect(renderer, &rect);
     }
@@ -116,12 +116,12 @@ void PathFinder::Renderer(SDL_Renderer* renderer)
     
     {
         //Start position,
-        SDL_Rect rect = { m_StartPosition.X()*40, m_StartPosition.Y()*40, 40, 40 };
+        SDL_Rect rect = {m_StartPosition.Y()*40,  m_StartPosition.X() * 40, 40, 40 };
         SDL_SetRenderDrawColor(renderer, 0, 255, 0, SDL_ALPHA_OPAQUE);
         SDL_RenderFillRect(renderer, &rect);
 
         //end position
-        rect = { m_EndPosition.X() * 40, m_EndPosition.Y() * 40, 40, 40 };
+        rect = { m_EndPosition.Y() * 40, m_EndPosition.X() * 40, 40, 40 };
         SDL_SetRenderDrawColor(renderer, 0, 0, 255, SDL_ALPHA_OPAQUE);
         SDL_RenderFillRect(renderer, &rect);
     }

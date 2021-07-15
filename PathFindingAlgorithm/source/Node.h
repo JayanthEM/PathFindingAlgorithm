@@ -37,8 +37,6 @@ public:
     void Reset();
 
     bool operator<(const Node& node) const;
-    bool operator=(const Node& node) const;
-    void operator()(const Node& node1, const Node& node2) const {}
 
 private:
     

@@ -12,12 +12,6 @@ bool Node::operator<(const Node& node) const
     return (mPathCost+mHeuristic < node.GetPathCost()+node.GetHeristic());
 }
 
-bool Node::operator=(const Node& node)const 
-{
-    return (mPathCost + mHeuristic == node.GetPathCost() + node.GetHeristic());
-}
-
-
 Position Node::GetPosition()
 {
     return mPosition;

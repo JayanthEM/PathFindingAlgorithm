@@ -31,7 +31,7 @@ public:
     {
         return ( (x != position.x) || (y != position.y) );
     }
-
+    
 private:
     int32_t x;
     int32_t y;

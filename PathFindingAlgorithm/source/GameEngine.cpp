@@ -27,7 +27,7 @@ void GameEngine::ConstructEngine()
 
     m_renderer = SDL_CreateRenderer(m_window,-1,SDL_RENDERER_ACCELERATED);
 
-    pathFinder->Create(WIDTH / 40, HEIGHT / 40);
+    pathFinder->Create(WIDTH / 40, HEIGHT / 40, m_renderer);
 }
 
 

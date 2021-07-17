@@ -24,8 +24,8 @@ void Grid::CreateGrid(const int32_t height, const int32_t width)
     }
 
     //Setting up neighbor Node
-    Position neighbour[] = { Position(-1,0), Position(1,0), Position(0,-1), Position(0,1),
-                            Position(-1,-1), Position(1,1), Position(1,-1), Position(-1,1) };   // Diagonal Nodes
+    Position neighbour[] = { Position(-1,0), Position(1,0), Position(0,-1), Position(0,1) };
+                            //Position(-1,-1), Position(1,1), Position(1,-1), Position(-1,1) };   // Diagonal Nodes
     
     for (int32_t y = 0; y < m_width; ++y)
     {

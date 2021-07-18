@@ -9,31 +9,33 @@ bool Dijkstra::FindPath(Position start, Position end, std::list<std::shared_ptr<
     std::shared_ptr<Node> destination = Grid::GetInstance()->GetNode(end);
 
     frontier.push_back(source);
-
-    while (!frontier.empty())
     {
-        frontier.sort([](std::shared_ptr<Node> const &first, std::shared_ptr<Node> const &second)->bool
-        { return ((first->GetPathCost()) < (second->GetPathCost())); }
-        );
-
-        std::shared_ptr<Node> currentNode = frontier.front();
-
-        if (currentNode == destination)
-            break;
-
-        currentNode->SetVisited(true);
-        frontier.pop_front();
-
-        FloodFill(currentNode, destination, frontier, pathFound, nullptr);
-
-        if (pathFound)
+        while (!frontier.empty())
         {
-            path.push_back(currentNode);
-            break;
+            frontier.sort([](std::shared_ptr<Node> const &first, std::shared_ptr<Node> const &second)->bool
+            { return ((first->GetPathCost()) < (second->GetPathCost())); }
+            );
+
+            std::shared_ptr<Node> currentNode = frontier.front();
+
+            if (currentNode == destination)
+                break;
+
+            currentNode->SetVisited(true);
+            frontier.pop_front();
+
+            FloodFill(currentNode, destination, frontier, pathFound, nullptr);
+
+            if (pathFound)
+            {
+                if(currentNode != source)
+                    path.push_back(currentNode);
+                break;
+            }
         }
     }
-
-    if (pathFound)
+    
+    if (pathFound && path.size())
     {
         std::shared_ptr<Node> node = path.back()->GetParentNode();
         while (node != source)

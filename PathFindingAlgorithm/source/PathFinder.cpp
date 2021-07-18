@@ -1,7 +1,7 @@
 #include "PathFinder.h"
 #include "PathFinderFactory.h"
 #include "Grid.h"
-
+#include<iostream>
 
 void PathFinder::Create(const int32_t width, const int32_t height, SDL_Renderer *renderer)
 {
@@ -14,7 +14,7 @@ void PathFinder::Create(const int32_t width, const int32_t height, SDL_Renderer 
 
     m_StartPositionTexture = LoadTexture("F:/C++/PathFinding/PathFindingAlgorithm/External Libraries/Image/wavingstartflag.png", renderer);
     m_EndPositionTexture = LoadTexture("F:/C++/PathFinding/PathFindingAlgorithm/External Libraries/Image/house.png", renderer); 
-    m_FootPrintTexture = LoadTexture("F:/C++/PathFinding/PathFindingAlgorithm/External Libraries/Image/FootTexture.png", renderer);    
+    m_FootPrintTexture = LoadTexture("F:/C++/PathFinding/PathFindingAlgorithm/External Libraries/Image/footprint.png", renderer);    
     m_WallTexture = LoadTexture("F:/C++/PathFinding/PathFindingAlgorithm/External Libraries/Image/wall.png", renderer);
 }
 
@@ -38,9 +38,9 @@ void PathFinder::HandleUserInput(std::function<void(Position&)> callBack)
 
 void PathFinder::ChangePathFindingAlgorithm(const SDL_Event& event)
 {
-    if (event.type == SDL_SCANCODE_1)
+    if (event.key.keysym.sym == SDLK_a)
         pathFinder = PathFinderFactory::CreatePathFinder(PATHFINDING_ALGORITHM::AStar_Algorithm);
-    else
+    else if(event.key.keysym.sym == SDLK_d)
         pathFinder = PathFinderFactory::CreatePathFinder(PATHFINDING_ALGORITHM::Dijkstra_Algorithm);
 }
 
@@ -173,7 +173,7 @@ void PathFinder::Renderer(SDL_Renderer* renderer)
         for (auto i = m_path.begin(); i != m_path.end(); ++i)
         {
             Position currentPosition((*i)->GetPosition().Y(), (*i)->GetPosition().X());
-            SDL_Rect rect = { currentPosition.Y() * 40,currentPosition.X() * 40, 40, 40 };
+            SDL_Rect rect = { currentPosition.Y() * 41, currentPosition.X() * 41, 20, 20 };
 
             if (m_FootPrintTexture)
             {
@@ -181,8 +181,15 @@ void PathFinder::Renderer(SDL_Renderer* renderer)
 
                 int x = previousPosition.X() - currentPosition.X();
                 int y = previousPosition.Y() - currentPosition.Y();
-
-                if (y != 0)
+                
+                if (x != 0 && y != 0)
+                {
+                    if (x == 1)
+                        angle = (y == 1) ? 315 : 45;
+                    else
+                        angle = (y == 1) ? 225 : 115;
+                }
+                else if (y != 0)
                 {
                     angle = (y == 1) ? 270 : 90;
                 }
@@ -190,6 +197,7 @@ void PathFinder::Renderer(SDL_Renderer* renderer)
                 {
                     angle = (x == 1) ? 0 : 180;
                 }
+                
 
                 SDL_RenderCopyEx(renderer, m_FootPrintTexture, NULL, &rect, angle, NULL, SDL_FLIP_NONE);
             }

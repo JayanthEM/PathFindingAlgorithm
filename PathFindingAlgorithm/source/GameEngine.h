@@ -4,7 +4,7 @@
 #include "PathFinder.h"
 
 #define WIDTH 800
-#define HEIGHT 600
+#define HEIGHT 800
 
 //Not a Generic GameEngine, tightly bounded to pathfinding algorithm
 class GameEngine

@@ -12,8 +12,7 @@ void InputHandler::HandleInput(bool &quit,PathFinder* pathFinder)
             quit = true;
             break;
 
-        case SDL_SCANCODE_1:
-        case SDL_SCANCODE_2:
+        case SDL_KEYDOWN:
             pathFinder->ChangePathFindingAlgorithm(event);
             break;
         case SDL_MOUSEBUTTONDOWN:

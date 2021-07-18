@@ -1,5 +1,5 @@
-#include "Astar.h"
 #include<functional>
+#include "Astar.h"
 
 bool AStar::FindPath(Position start, Position end, std::list<std::shared_ptr<Node>> &path)
 {
@@ -10,35 +10,37 @@ bool AStar::FindPath(Position start, Position end, std::list<std::shared_ptr<Nod
     std::shared_ptr<Node> destination = Grid::GetInstance()->GetNode(end);
 
     frontier.push_back(source);
-
-    while (!frontier.empty())
     {
-        frontier.sort([](std::shared_ptr<Node> const &first, std::shared_ptr<Node> const &second)->bool
-        { return ((first->GetPathCost() + first->GetHeristic()) < (second->GetPathCost() + second->GetHeristic())); }
-        );
-
-        std::shared_ptr<Node> currentNode = frontier.front();
-
-        if (currentNode == destination)
-            break;
-
-        currentNode->SetVisited(true);
-        frontier.pop_front();
-        AStar::Manhattan foo = &IPathFindingAlgorithm::ManhattanDistance;
-
-       FloodFill(currentNode, destination, frontier, pathFound,foo );
-
-        if (pathFound)
+        while (!frontier.empty())
         {
-            path.push_back(currentNode);
-            break;
+            frontier.sort([](std::shared_ptr<Node> const &first, std::shared_ptr<Node> const &second)->bool
+            { return ((first->GetPathCost() + first->GetHeristic()) < (second->GetPathCost() + second->GetHeristic())); }
+            );
+
+            std::shared_ptr<Node> currentNode = frontier.front();
+
+            if (currentNode == destination)
+                break;
+
+            currentNode->SetVisited(true);
+            frontier.pop_front();
+            AStar::Manhattan foo = &IPathFindingAlgorithm::ManhattanDistance;
+
+            FloodFill(currentNode, destination, frontier, pathFound, foo);
+
+            if (pathFound)
+            {
+                if(currentNode != source)
+                    path.push_back(currentNode);
+                break;
+            }
         }
     }
-
-    if (pathFound)
+   
+    if (pathFound && path.size())
     {
         std::shared_ptr<Node> node= path.back()->GetParentNode();
-        while (node != source)
+        while (node != source && node != nullptr)
         {
             path.push_front(node);
             node = node->GetParentNode();

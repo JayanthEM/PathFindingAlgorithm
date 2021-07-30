@@ -1,7 +1,8 @@
 #include<functional>
 #include "Astar.h"
+#include <algorithm>
 
-bool AStar::FindPath(Position start, Position end, std::list<std::shared_ptr<Node>> &path)
+void AStar::FindPath(Position start, Position end, std::list<std::shared_ptr<Node>> &path, std::vector<std::shared_ptr<Node>> &floodFillNodes)
 {
     std::list<std::shared_ptr<Node>> frontier;
     bool pathFound = false;
@@ -18,15 +19,15 @@ bool AStar::FindPath(Position start, Position end, std::list<std::shared_ptr<Nod
             );
 
             std::shared_ptr<Node> currentNode = frontier.front();
-
             if (currentNode == destination)
                 break;
 
             currentNode->SetVisited(true);
             frontier.pop_front();
-            AStar::Manhattan foo = &IPathFindingAlgorithm::ManhattanDistance;
 
-            FloodFill(currentNode, destination, frontier, pathFound, foo);
+            AStar::Manhattan manhattanFunction = &IPathFindingAlgorithm::ManhattanDistance;
+
+            FloodFill(currentNode, destination, frontier, floodFillNodes, pathFound, manhattanFunction);
 
             if (pathFound)
             {
@@ -48,8 +49,6 @@ bool AStar::FindPath(Position start, Position end, std::list<std::shared_ptr<Nod
     }
 
     Grid::GetInstance()->ResetNodes();
-
-    return pathFound;
 }
 
 std::string AStar::GetName()

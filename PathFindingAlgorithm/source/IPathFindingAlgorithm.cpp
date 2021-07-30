@@ -1,7 +1,7 @@
 #include "IPathFindingAlgorithm.h"
 
 void IPathFindingAlgorithm::FloodFill(std::shared_ptr<Node> startNode, std::shared_ptr<Node> endNode,
-    std::list<std::shared_ptr<Node>> &frontier, bool &pathFound, uint32_t(IPathFindingAlgorithm::*heuristicFunction)(Position, Position) )
+    std::list<std::shared_ptr<Node>> &frontier,std::vector<std::shared_ptr<Node>> &floodFillNodes, bool &pathFound, uint32_t(IPathFindingAlgorithm::*heuristicFunction)(Position, Position) )
 {
     for (auto i = startNode->Neighbour().begin(); i != startNode->Neighbour().end(); i++)
     {
@@ -12,9 +12,15 @@ void IPathFindingAlgorithm::FloodFill(std::shared_ptr<Node> startNode, std::shar
             return;
         }
 
-        if (currentNode->GetPathType() != PATH::WALL && currentNode->IsVisited() == false)
+        if (currentNode->GetPathType() != PATH::WALL && currentNode->IsVisited() == false )
         {
-            uint32_t pathcost = startNode->GetPathCost() + Distance(currentNode->GetPosition(), startNode->GetPosition());
+            int distance = Distance(currentNode->GetPosition(), startNode->GetPosition());
+
+            if (currentNode->GetPathType() == PATH::NEAR_WALL && distance > 10)
+            {
+                continue;
+            }
+            uint32_t pathcost = startNode->GetPathCost() + distance;
             uint32_t heuristic = 0;
 
             if(heuristicFunction)
@@ -28,6 +34,9 @@ void IPathFindingAlgorithm::FloodFill(std::shared_ptr<Node> startNode, std::shar
                 currentNode->SetParentNode(startNode);
 
                 frontier.push_back(currentNode);
+
+                if(node == frontier.end())
+                    floodFillNodes.push_back(currentNode);
             }
         }
     }

@@ -1,9 +1,10 @@
-﻿  Grid.cpp
+﻿  Astar.cpp
+  Dijkstra.cpp
   PathFinder.cpp
 f:\c++\pathfinding\pathfindingalgorithm\pathfindingalgorithm\source\pathfinderfactory.h(2): warning C4067: unexpected tokens following preprocessor directive - expected a newline
   Generating code
-  2 of 625 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
+  4 of 633 functions ( 0.6%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    4 functions had inline decision re-evaluated but remain unchanged
+    1 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   PathFindingAlgorithm.vcxproj -> F:\C++\PathFinding\PathFindingAlgorithm\Release\PathFindingAlgorithm.exe

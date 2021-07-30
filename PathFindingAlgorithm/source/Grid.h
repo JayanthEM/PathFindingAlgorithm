@@ -17,10 +17,12 @@ public:
 
     int32_t GetHeight() { return m_height; }
     int32_t GetWidth() { return m_width; }
+    
+    bool IsLocationValid(Position pos, const int32_t &width, const int32_t &height);
 
 private:
     int32_t m_height;
     int32_t m_width;
     std::map<Position, std::shared_ptr<Node>> mNodes;
-    bool IsLocationValid(Position pos, const int32_t &width, const int32_t &height);
+   
 };

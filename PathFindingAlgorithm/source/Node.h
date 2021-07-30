@@ -7,6 +7,7 @@ enum PATH
 {
     WAKABLE,
     WALL,
+    NEAR_WALL,
 };
 
 class Node

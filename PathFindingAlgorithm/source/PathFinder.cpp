@@ -1,7 +1,8 @@
 #include "PathFinder.h"
 #include "PathFinderFactory.h"
 #include "Grid.h"
-#include<iostream>
+#include <iostream>
+#include <array>
 
 void PathFinder::Create(const int32_t width, const int32_t height, SDL_Renderer *renderer)
 {
@@ -80,33 +81,99 @@ void PathFinder::Update()
         UpdateWall(position);
     }
     m_path.clear();
-    pathFinder->FindPath(m_StartPosition, m_EndPosition, m_path);
+    m_frontier.clear();
+    pathFinder->FindPath(m_StartPosition, m_EndPosition, m_path, m_frontier);
 }
 
 void PathFinder::UpdateWall(const  Position& position)
 {
     auto it = std::find(m_Wall.begin(), m_Wall.end(), position);
     std::shared_ptr<Node> node = Grid::GetInstance()->GetNode(position);
-
+    std::array<Position,4> neighbours = { Position(1,0), Position(0,1), Position(-1,0), Position(0,-1) }; 
+    
+    int32_t width = Grid::GetInstance()->GetWidth();
+    int32_t height = Grid::GetInstance()->GetHeight();
+    
     if (it == m_Wall.end())
     {   
         if (m_StartPosition != position && m_EndPosition != position)
         {
             node->SetPathType(PATH::WALL);
+
+            for (auto neighbour : neighbours)
+            {
+                Position pos(node->GetPosition().Y() + neighbour.Y(), node->GetPosition().X() + neighbour.X());
+                if (Grid::GetInstance()->IsLocationValid(pos, width, height))
+                {
+                    std::shared_ptr<Node> neighbourNode = Grid::GetInstance()->GetNode(pos);
+                    if(neighbourNode->GetPathType() == PATH::WAKABLE)
+                        neighbourNode->SetPathType(PATH::NEAR_WALL);
+                }
+            }
             m_Wall.push_back(position);
         }
     }
     else
     {
-        node->SetPathType(PATH::WAKABLE);
+        UpdateNearbyNeighbour(node, neighbours);
         m_Wall.remove(position);
+        
+        //Update nearby walkable into walk depends on its neighbor
+        for (auto neighbour : neighbours)
+        {
+            Position pos(node->GetPosition().Y() + neighbour.Y(), node->GetPosition().X() + neighbour.X());
+            
+            std::shared_ptr<Node> neighbourNode = Grid::GetInstance()->GetNode(pos);
+
+            if(neighbourNode && neighbourNode->GetPathType() == PATH::NEAR_WALL)
+                UpdateNearbyNeighbour(neighbourNode, neighbours);
+        }
     }
+}
+
+void PathFinder::UpdateNearbyNeighbour(std::shared_ptr<Node> neighbourNode, const std::array<Position,4>& neighbours)
+{    
+    int totalNeigbourdiff = neighbourNode->Neighbour().size() - neighbours.size();
+    int totalNeighbour;
+
+    if (totalNeigbourdiff > 0)
+        totalNeighbour = neighbourNode->Neighbour().size() - totalNeigbourdiff;
+
+    for (auto currentnodeNeighbour : neighbours)
+    {
+        Position pos(neighbourNode->GetPosition().Y() + currentnodeNeighbour.Y(), neighbourNode->GetPosition().X() + currentnodeNeighbour.X());
+        std::shared_ptr<Node> currentNeighborNode = Grid::GetInstance()->GetNode(pos);
+        if (currentNeighborNode)
+        {
+            if (currentNeighborNode->GetPathType() == PATH::WALL)
+                break;
+            else
+                --totalNeighbour;
+        }
+    }
+    
+    if (totalNeighbour == 0)
+        neighbourNode->SetPathType(PATH::WAKABLE);
+    else
+        neighbourNode->SetPathType(PATH::NEAR_WALL);
 }
 
 void PathFinder::Renderer(SDL_Renderer* renderer)
 {
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
     SDL_RenderClear(renderer);
+
+    // Visited 
+    for (auto i = m_frontier.begin(); i != m_frontier.end(); ++i)
+    {
+        auto isFound = std::find(m_path.begin(), m_path.end(), (*i));
+        if (isFound == m_path.end())
+        {
+            SDL_Rect rect = { (*i)->GetPosition().Y() * 40, (*i)->GetPosition().X() * 40, 40, 40 };
+            SDL_SetRenderDrawColor(renderer, 230, 230, 230, SDL_ALPHA_OPAQUE);
+            SDL_RenderFillRect(renderer, &rect);
+        }
+    }
 
     // Grid
     int32_t width = Grid::GetInstance()->GetWidth();
@@ -138,7 +205,6 @@ void PathFinder::Renderer(SDL_Renderer* renderer)
             SDL_RenderFillRect(renderer, &rect);
         }            
     }
-
     
     {
         //Start position,

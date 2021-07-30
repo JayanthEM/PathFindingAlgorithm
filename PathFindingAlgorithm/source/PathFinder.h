@@ -31,6 +31,7 @@ private:
     Position m_StartPosition;
     Position m_EndPosition;
     std::list<std::shared_ptr<Node>> m_path;
+    std::vector<std::shared_ptr<Node>> m_frontier;
 
     SDL_Texture* m_StartPositionTexture;
     SDL_Texture* m_EndPositionTexture;
@@ -43,4 +44,6 @@ private:
 
     void UpdateWall(const  Position& position);
     SDL_Texture* LoadTexture(std::string path, SDL_Renderer* renderer);
+
+    void UpdateNearbyNeighbour(std::shared_ptr<Node> neighbourNode, const std::array<Position, 4>& neighbours);
 };

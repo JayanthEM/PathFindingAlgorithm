@@ -1,6 +1,7 @@
 #include "Dijkstra.h"
+#include <algorithm>
 
-bool Dijkstra::FindPath(Position start, Position end, std::list<std::shared_ptr<Node>> &path)
+void Dijkstra::FindPath(Position start, Position end, std::list<std::shared_ptr<Node>> &path, std::vector<std::shared_ptr<Node>> &floodFillNodes)
 {
     std::list<std::shared_ptr<Node>> frontier;
     bool pathFound = false;
@@ -15,7 +16,7 @@ bool Dijkstra::FindPath(Position start, Position end, std::list<std::shared_ptr<
             frontier.sort([](std::shared_ptr<Node> const &first, std::shared_ptr<Node> const &second)->bool
             { return ((first->GetPathCost()) < (second->GetPathCost())); }
             );
-
+            
             std::shared_ptr<Node> currentNode = frontier.front();
 
             if (currentNode == destination)
@@ -24,7 +25,7 @@ bool Dijkstra::FindPath(Position start, Position end, std::list<std::shared_ptr<
             currentNode->SetVisited(true);
             frontier.pop_front();
 
-            FloodFill(currentNode, destination, frontier, pathFound, nullptr);
+            FloodFill(currentNode, destination, frontier, floodFillNodes, pathFound, nullptr);
 
             if (pathFound)
             {
@@ -46,8 +47,6 @@ bool Dijkstra::FindPath(Position start, Position end, std::list<std::shared_ptr<
     }
 
     Grid::GetInstance()->ResetNodes();
-
-    return pathFound;
 }
 
 std::string Dijkstra::GetName()

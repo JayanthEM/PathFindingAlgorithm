@@ -1,10 +1,11 @@
 #pragma once
 #include <SDL.h>
+#include "SDL_ttf.h"
 #include "InputHandler.h"
 #include "PathFinder.h"
 
 #define WIDTH 800
-#define HEIGHT 800
+#define HEIGHT 600
 
 //Not a Generic GameEngine, tightly bounded to pathfinding algorithm
 class GameEngine

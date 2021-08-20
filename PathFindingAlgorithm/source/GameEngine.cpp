@@ -17,9 +17,9 @@ GameEngine::~GameEngine()
 
 void GameEngine::ConstructEngine()
 {
-    if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
+    if (SDL_Init(SDL_INIT_EVERYTHING) < 0 || TTF_Init() < 0)
         return;
-
+    
     m_window = SDL_CreateWindow("Path Finding", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WIDTH, HEIGHT, SDL_WINDOW_SHOWN);
 
     if (!m_window)

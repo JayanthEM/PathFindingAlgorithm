@@ -51,5 +51,5 @@ void Dijkstra::FindPath(Position start, Position end, std::list<std::shared_ptr<
 
 std::string Dijkstra::GetName()
 {
-    return "Dijkstra Algorithm";
+    return "Dijkstra";
 }

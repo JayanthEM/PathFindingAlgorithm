@@ -4,6 +4,16 @@
 #include <iostream>
 #include <array>
 
+PathFinder::~PathFinder()
+{
+    SDL_DestroyTexture(m_StartPositionTexture);
+    SDL_DestroyTexture(m_EndPositionTexture);
+    SDL_DestroyTexture(m_FootPrintTexture);
+    SDL_DestroyTexture(m_WallTexture);
+
+    delete pathFinder;
+}
+
 void PathFinder::Create(const int32_t width, const int32_t height, SDL_Renderer *renderer)
 {
     Grid::GetInstance()->CreateGrid(height, width);
@@ -13,10 +23,12 @@ void PathFinder::Create(const int32_t width, const int32_t height, SDL_Renderer 
     m_StartPosition = Position(1, 2);
     m_EndPosition = Position(1, 5);
 
-    m_StartPositionTexture = LoadTexture("F:/C++/PathFinding/PathFindingAlgorithm/External Libraries/Image/wavingstartflag.png", renderer);
-    m_EndPositionTexture = LoadTexture("F:/C++/PathFinding/PathFindingAlgorithm/External Libraries/Image/house.png", renderer); 
-    m_FootPrintTexture = LoadTexture("F:/C++/PathFinding/PathFindingAlgorithm/External Libraries/Image/footprint.png", renderer);    
-    m_WallTexture = LoadTexture("F:/C++/PathFinding/PathFindingAlgorithm/External Libraries/Image/wall.png", renderer);
+    m_StartPositionTexture = LoadTexture("F:/C++/PathFinding/PathFindingAlgorithm/Assets/Image/wavingstartflag.png", renderer);
+    m_EndPositionTexture = LoadTexture("F:/C++/PathFinding/PathFindingAlgorithm/Assets/Image/house.png", renderer); 
+    m_FootPrintTexture = LoadTexture("F:/C++/PathFinding/PathFindingAlgorithm/Assets/Image/footprint.png", renderer);    
+    m_WallTexture = LoadTexture("F:/C++/PathFinding/PathFindingAlgorithm/Assets/Image/wall.png", renderer);
+
+    m_font = TTF_OpenFont("F:/C++/PathFinding/PathFindingAlgorithm/Assets/Font/calibri.ttf", 26);
 }
 
 SDL_Texture* PathFinder::LoadTexture(std::string path, SDL_Renderer* renderer)
@@ -83,6 +95,7 @@ void PathFinder::Update()
     m_path.clear();
     m_frontier.clear();
     pathFinder->FindPath(m_StartPosition, m_EndPosition, m_path, m_frontier);
+
 }
 
 void PathFinder::UpdateWall(const  Position& position)
@@ -275,5 +288,22 @@ void PathFinder::Renderer(SDL_Renderer* renderer)
             previousPosition = currentPosition;
         }
     }
+
+    // Print algorithm name
+    {
+        SDL_Surface* surface = TTF_RenderText_Solid(m_font, pathFinder->GetName().c_str(), { 0,0,0,0 });
+        if (surface)
+        {
+            SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+            if (texture)
+            {
+                SDL_Rect rect = { 5, 5, surface->w, surface->h };
+                SDL_RenderCopy(renderer, texture, nullptr, &rect);
+            }
+            SDL_DestroyTexture(texture);
+        }
+        SDL_FreeSurface(surface);
+    }
+
     SDL_RenderPresent(renderer);
 }

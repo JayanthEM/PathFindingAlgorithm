@@ -4,6 +4,7 @@ Pathfinding algorithm plays a vital role in games that are used by AI agents in 
 from the starting point to the goal avoiding obstacles with minimum cost.
 
 **ToDO List**
+
 Implementation of path finding algorithms.
 - [x] Astar
 - [x] Dijkstra

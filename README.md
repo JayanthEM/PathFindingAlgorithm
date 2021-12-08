@@ -13,10 +13,6 @@ Implementation of path finding algorithms.
 * Dijkstra algorithm is used to the shortest path to the unknown position. Even though it finds the shortest path, it consumes 
   more time and resources.
 
-![image](https://user-images.githubusercontent.com/37940816/145159172-1faf197d-dfe9-459c-98d5-4c165ebb240e.png)
-
-
-
 
 **For more reference:**
 

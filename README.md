@@ -10,9 +10,11 @@ Implementation of path finding algorithms.
 - [x] Dijkstra
 
 * A Star is used to find the path to the known position so it always consumes less time to find the path compared to Dijkstra
-* Dijkstra algorithm is used to the shortest path to the unknown position. Even though it finds the shortest path, it consumes more time and resources 
+* Dijkstra algorithm is used to the shortest path to the unknown position. Even though it finds the shortest path, it consumes 
+  more time and resources.
 
-![image](https://user-images.githubusercontent.com/37940816/145158864-0e01e264-7d21-48b0-b969-ee1fe6eca81d.png)
+![image](https://user-images.githubusercontent.com/37940816/145159172-1faf197d-dfe9-459c-98d5-4c165ebb240e.png)
+
 
 
 
